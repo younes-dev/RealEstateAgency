@@ -125,3 +125,24 @@ services:
             - "8025:8025"
             - "1025:1025"
 
+  ##########################################
+  #               jenkins Image            #
+  ##########################################
+## lien : https://dev.to/andresfmoya/install-jenkins-using-docker-compose-4cab
+## lien : https://stackoverflow.com/a/46179806
+## lien : https://github.com/bitnami/bitnami-docker-jenkins/blob/master/docker-compose.yml
+#    jenkins:
+#        image: jenkins
+#        container_name: RealEstateAgency-jenkins
+#        #    user: root
+#        working_dir: /application
+#        ports:
+#          - 8088:8080
+#          - 50000:50000
+#        volumes:
+##          - .:/application
+#          - ~/jenkins:/var/RealEstateAgency-jenkins
+#          - /var/run/docker.sock:/var/run/docker.sock
+#          - /usr/local/bin/docker:/usr/local/bin/docker
+#
+
