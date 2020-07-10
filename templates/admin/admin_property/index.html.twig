@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{#{% block title 'Gérer les bien'%}#}
+{% block stylesheets %}
+    <style>
+        .alert-success{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+
+        <h1>Gérer les biens</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="text-right">
+            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Crée un nouveau bien</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for property in properties %}
+                <tr>
+                <td>{{ property.title }}</td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-2" mr-12>
+                            <a href="{{ path('admin.property.edit',{ id:property.id }) }}" class="btn btn-info">Editer</a>
+                        </div>
+                        <div class="col-md-2">
+                            <form method="post" action="{{ path('admin.property.delete',{ id:property.id }) }}" style="display: inline-flex">
+                                <input type="hidden" name="_method" value="DELETE">
+                                {# // this line to secure the form making sure thats is the form submited and has the token generated #}
+                                <input type="hidden" name="_to{{ csrf_token('delete' ~ property.id) }}">
+                                <button class="btn btn-danger" onclick="return confirm('are u sure?')">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+    {###########################################################################}
+
+    {% block javascripts %}
+            <script type="text/javascript">
+
+
+            </script>
+    {% endblock %}
+{% endblock %}
