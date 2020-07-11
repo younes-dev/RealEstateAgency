@@ -21,6 +21,34 @@
     mysql>     grant all on *.* to 'root'@'%';
 ````
 ***
+* this command to dump its default configuration.
+````
+    Syntax : php bin/console config:dump-reference FrameworkBundle
+             php bin/console config:dump-reference security
+````
+***
+[How to Debug the Service Container & List Services](https://symfony.com/doc/current/service_container/debug.html)
+* you can find out what services are registered with the container using the console.
+    To show all services (public and private) and their PHP classes, run:
+    
+````
+   php bin/console debug:container
+   php bin/console debug:container --show-hidden
+````
+
+* To see a list of all of the available types that can be used for autowiring, run:
+````    
+  php bin/console debug:autowiring
+````
+* Detailed Info about a Single Service
+````   
+  php bin/console debug:container 'App\Service\Mailer'
+````    
+ *  to show the service arguments:
+````
+  php bin/console debug:container 'App\Service\Mailer' --show-arguments
+````
+***
 [Switches button : Toggle Element Bootstrap](https://symfony.com/blog/new-in-symfony-4-4-bootstrap-custom-switches)
 ***
 [The Symfony Methods [GET,HEAD,POST,PUT,DELETE]](https://www.ionos.fr/digitalguide/hebergement/aspects-techniques/405-method-not-allowed/)

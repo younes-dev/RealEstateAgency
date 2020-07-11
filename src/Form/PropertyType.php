@@ -40,6 +40,7 @@ class PropertyType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Property::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }
