@@ -102,8 +102,17 @@
     "egulias/email-validator": {
         "version": "2.1.18"
     },
+    "fzaninotto/faker": {
+        "version": "v1.9.1"
+    },
     "gedmo/doctrine-extensions": {
         "version": "v2.4.41"
+    },
+    "knplabs/knp-components": {
+        "version": "v2.3.6"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.2.0"
     },
     "monolog/monolog": {
         "version": "1.25.4"

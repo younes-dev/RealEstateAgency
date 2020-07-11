@@ -6,7 +6,9 @@ use App\Entity\Property;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -35,13 +37,21 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/biens", name="property.index")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
      */
-    public function index():Response
+    public function index(PaginatorInterface $paginator,Request $request):Response
     {
-        $property=$this->repository->findAllActiveProperty();
+//        $properties=$this->repository->findAllActivePropertyQuery();
 
+        $properties=$paginator->paginate(
+            $this->repository->findAllActivePropertyQuery(),/* query NOT result */
+            $request->query->getInt('page',1),/*page number*/
+            12);/*limit per page*/
         return $this->render('property/index.html.twig', [
-            'CurrentMenu' => 'Properties',
+            'CurrentMenu' => 'properties',
+            'properties' => $properties,
         ]);
     }
 

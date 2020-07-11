@@ -3,7 +3,30 @@
 {% block title "Voir Tous Nos Biens" %}
 
 {% block body %}
+    {# total items count #}
+{#    <div class="count">#}
+{#        {{ pagination.getTotalItemCount }}#}
+{#    </div>#}
+
     <div class="container mt-4">
         <h1>Voir Tous Nos Biens</h1>
+
+        <div class="row">
+        {% for property in properties %}
+            <div class="col-md-4">
+                {% include 'property/_property.html.twig' %}
+            </div>
+        {% endfor %}
+        </div>
+
+        {# display navigation #}
+        <div class="pagination">
+            {{ knp_pagination_render(properties) }}
+        </div>
+
+        {# total items count #}
+        <div class="count">
+            {{ properties.getTotalItemCount }}
+        </div>
     </div>
 {% endblock %}

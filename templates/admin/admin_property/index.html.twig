@@ -54,7 +54,15 @@
 
             </tbody>
         </table>
+        {# display navigation #}
+        <div class="pagination">
+            {{ knp_pagination_render(properties) }}
+        </div>
 
+        {# total items count #}
+        <div class="count">
+            {{ properties.getTotalItemCount }}
+        </div>
     </div>
 
     {###########################################################################}
