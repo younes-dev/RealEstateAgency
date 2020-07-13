@@ -13,7 +13,12 @@
 
     <div class="container mt-4">
 
-        <h1>Gérer les biens</h1>
+        <h1>
+            <label for="" class="badge badge-light">
+            <a href="{{ path('admin.property.index') }}">  Gérer les biens</a>
+
+            </label>
+        </h1>
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -26,6 +31,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>Id</th>
                 <th>Title</th>
                 <th>Actions</th>
             </tr>
@@ -33,6 +39,7 @@
             <tbody>
             {% for property in properties %}
                 <tr>
+                <td>{{ property.id }}</td>
                 <td>{{ property.title }}</td>
                 <td>
                     <div class="row">

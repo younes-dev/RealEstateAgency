@@ -68,16 +68,16 @@ https://dev.to/
 [Création des slugs by cocur/slugify
 ](https://github.com/cocur/slugify)
 ***
-
 [symfony modeles and components explaining](https://dev.to/brpaz/an-introduction-to-symfony--the-foundation-of-modern-php-applications-ehj)
 [Integrate Oauth2 for Symfony 4](https://dev.to/_mertsimsek/integrate-oauth2-for-symfony-4-360c)
-
+***
 [Commands for Viewing and Sorting Files](https://dev.to/yashsugandh/commands-for-viewing-and-sorting-files-452j)
-
-
+***
 [Admin Dashboards - Open-Source and Free](https://dev.to/sm0ke/admin-dashboards-open-source-and-free-4aep)
-
+***
 [Symfony 5 development with Docker](https://dev.to/martinpham/symfony-5-development-with-docker-4hj8)
 ***
 [les méthodes persist(), flush() et clear()](https://openclassrooms.com/forum/sujet/doctrine-persist-update-ou-insert)
-
+***
+[Solution : Error: Call to undefined method phpDocumentor\Reflection\DocBlock\Tags\InvalidTag::getType()
+](https://github.com/symfony/symfony/issues/36049#issuecomment-599257514)

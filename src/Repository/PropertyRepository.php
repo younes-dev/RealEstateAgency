@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Property;
+use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -23,12 +24,44 @@ class PropertyRepository extends ServiceEntityRepository
 
 
     /**
+     * @param PropertySearch $search
      * @return Query
      */
-    public function findAllActivePropertyQuery(): Query
+    public function findAllActivePropertyQuery(PropertySearch $search): Query
     {
-        return $this->findAllAProperties()
-            ->getQuery();
+/////////////////////////////////////////////////////////////
+        $query = $this->findAllAProperties();
+
+        if($search->getMaxPrice()){
+            $query->andWhere('p.price <= :maxPrice' )
+                ->setParameter('maxPrice',$search->getMaxPrice());
+        }
+        if($search->getMinSurface()){
+           $query->andWhere('p.surface >= :minSurface' )
+                ->setParameter('minSurface',$search->getMinSurface());
+        }
+        if($search->getMaxSurface()){
+            $query->andWhere('p.surface <= :maxSurface' )
+                ->setParameter('maxSurface',$search->getMaxSurface());
+        }
+            return $query->getQuery();
+
+
+////////////////////////////////////////////////////////////
+
+//        $query = $this->findAllAProperties();
+
+//        if($search->getMaxPrice()){
+//            $query=$query
+//                ->andWhere('p.price <= :maxPrice' )
+//                ->setParameter('maxPrice',$search->getMaxPrice());
+//        }
+//        if($search->getMinSurface()){
+//            $query=$query
+//                ->andWhere('p.surface >= :minSurface' )
+//                ->setParameter('minSurface',$search->getMinSurface());
+//        }
+//            return $query->getQuery();
     }
 
 
@@ -76,6 +109,17 @@ class PropertyRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.sold= false');
+    }
+
+
+    public function selectSurface()
+    {
+        return $query = $this
+                            ->createQueryBuilder('p')
+                            ->select('p.surface')
+                            ->distinct('p.surface')
+                            ->getQuery()
+                            ->getResult();
     }
 
 }
