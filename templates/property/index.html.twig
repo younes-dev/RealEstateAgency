@@ -33,7 +33,17 @@
 
 
     <div class="container mt-4">
-        <h1>Voir Tous Nos Biens</h1>
+        <div class="title">
+            <h1>Voir Tous Nos Biens</h1>
+        </div>
+        <div class="row p2" style="margin-bottom: 24px;margin-top: 24px;">
+            <div class="col text-right">
+                <span class="badge-primary p-2 m-2" style="border-radius: 30rem;font-size: large;text-align: right"> Resultas Trouver  </span>
+                <b> :
+                    <span class="badge-dark p-2 m-2" style="border-radius: 30rem;font-size: large;text-align: right">  {{ properties.getTotalItemCount }} </span>
+                </b>
+            </div>
+        </div>
 
         <div class="row">
         {% for property in properties %}
