@@ -81,3 +81,11 @@ https://dev.to/
 ***
 [Solution : Error: Call to undefined method phpDocumentor\Reflection\DocBlock\Tags\InvalidTag::getType()
 ](https://github.com/symfony/symfony/issues/36049#issuecomment-599257514)
+
+
+[Formatted SQL :](https://github.com/doctrine/sql-formatter/)
+````
+composer require jdorn/sql-formatter
+````
+[Generating DB Schema in 10 seconds with MySQL Workbench](https://www.youtube.com/watch?v=RbKEYDtkAJI)
+
