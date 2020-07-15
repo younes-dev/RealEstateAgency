@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Option{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Create new Option</h1>
+        <div class="row">
+            <div class="col-4">
+                <div>
+                    {{ include('admin/option/_form.html.twig',{button: 'Enregistrer'}) }}
+                    <p style="text-align: center;margin-top: -38px!important;vertical-align: center">
+                    <a href="{{ path('option_index') }}" class="btn btn-info">
+                        Back to list</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Cocur\Slugify\Slugify;
@@ -97,6 +99,12 @@ class Property
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="properties")
+     */
+    public $options;
+
 
     public function getId(): ?int
     {
@@ -287,5 +295,32 @@ class Property
         // use timestampable instead this initialize inside the entity constructor.
         // advantage timestampable its reusable in all entities and less coding.
         // $this->created_at = new \DateTime();
+        $this->Options = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Option[]
+     */
+    public function getOptions(): Collection
+    {
+        return $this->Options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->Options->contains($option)) {
+            $this->Options[] = $option;
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        if ($this->Options->contains($option)) {
+            $this->Options->removeElement($option);
+        }
+
+        return $this;
     }
 }

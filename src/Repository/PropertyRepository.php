@@ -29,7 +29,6 @@ class PropertyRepository extends ServiceEntityRepository
      */
     public function findAllActivePropertyQuery(PropertySearch $search): Query
     {
-/////////////////////////////////////////////////////////////
         $query = $this->findAllAProperties();
 
         if($search->getMaxPrice()){
@@ -44,24 +43,19 @@ class PropertyRepository extends ServiceEntityRepository
             $query->andWhere('p.surface <= :maxSurface' )
                 ->setParameter('maxSurface',$search->getMaxSurface());
         }
-            return $query->getQuery();
 
+        if($search->getOptions()->count() > 0) {
+            $key=0;
+        foreach ($search->getOptions() as $option){
+            $key++;
+            $query = $query
+                ->andWhere(":option$key MEMBER OF p.options")
+                ->setParameter("option$key",$option);
+            }
+        }
 
-////////////////////////////////////////////////////////////
+        return $query->getQuery();
 
-//        $query = $this->findAllAProperties();
-
-//        if($search->getMaxPrice()){
-//            $query=$query
-//                ->andWhere('p.price <= :maxPrice' )
-//                ->setParameter('maxPrice',$search->getMaxPrice());
-//        }
-//        if($search->getMinSurface()){
-//            $query=$query
-//                ->andWhere('p.surface >= :minSurface' )
-//                ->setParameter('minSurface',$search->getMinSurface());
-//        }
-//            return $query->getQuery();
     }
 
 
@@ -112,14 +106,15 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
 
+    // todo execute this function and fill surface input from databases
     public function selectSurface()
     {
-        return $query = $this
-                            ->createQueryBuilder('p')
-                            ->select('p.surface')
-                            ->distinct('p.surface')
-                            ->getQuery()
-                            ->getResult();
+        return  $this
+                    ->createQueryBuilder('p')
+                    ->select('p.surface')
+                    ->distinct('p.surface')
+                    ->getQuery()
+                    ->getResult();
     }
 
 }

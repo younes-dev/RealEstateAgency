@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Option index{% endblock %}
+{% block stylesheets %}
+    <style>
+        .alert-success{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+
+        <h1>
+            <label for="" class="badge badge-light">
+                <a href="{{ path('option_index') }}">  Gérer les Option</a>
+            </label>
+        </h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="text-right">
+            <a href="{{ path('option_new') }}" class="btn btn-primary">Crée une nouvelle Option</a>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for option in options %}
+                <tr>
+                    <td>{{ option.id }}</td>
+                    <td>{{ option.Name }}</td>
+                    <td>{{ option.Description }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-3">
+                             <a href="{{ path('option_index', {'id': option.id}) }}" class="btn btn-success">show</a>
+                            </div>
+                            <div class="col-md-2.5">
+                                <a href="{{ path('option_edit', {'id': option.id}) }}" class="btn btn-info">&nbspedit</a>
+                            </div>
+                            <div class="col-md-2">
+                                <form method="post" action="{{ path('option_delete',{ id:option.id }) }}" style="display: inline-flex">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ option.id) }}">
+                                    <button class="btn btn-danger" onclick="return confirm('are u sure?')">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    {% endblock %}

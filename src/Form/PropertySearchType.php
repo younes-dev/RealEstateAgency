@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Option;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
 use App\Repository\PropertyRepository;
@@ -105,6 +106,14 @@ class PropertySearchType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Buget Maximale'
                 ]
+            ])
+
+            ->add('options',EntityType::class,[
+                'class' => Option::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'required' => false,
+                'label' => false,
             ])
         ;
     }
