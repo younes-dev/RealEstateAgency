@@ -12,7 +12,6 @@ class PropertyFixture extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker= Factory::create('fr_FR');
-         $property= new Property();
          for ($i = 1; $i <= 100; $i++) {
              $property= new Property();
              $property->setTitle($faker->words( 3, true))

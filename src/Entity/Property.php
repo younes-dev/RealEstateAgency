@@ -103,7 +103,7 @@ class Property
     /**
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="properties")
      */
-    public $options;
+    public $Options;
 
 
     public function getId(): ?int
