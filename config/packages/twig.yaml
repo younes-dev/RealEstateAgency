@@ -2,8 +2,10 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    # Define locale timezone as default timezone
+    date:
+        timezone: Africa/Casablanca
     exception_controller: null
 #    path : ProjectSymfony/RealEstateAgency/vendor/symfony/twig-bridge/Resources/views/Form
     form_themes: ['bootstrap_4_layout.html.twig']
 #    form_themes: ['form_table_layout.html.twig']
-

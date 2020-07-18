@@ -12,7 +12,15 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-
+    <style>
+        li.select2-selection__choice{
+            background-color: #467BFE !important;
+            color: cornsilk;
+            /*border-radius: 1em!important;*/
+            font-size: 0.90rem;
+            font-weight: bold;
+        }
+    </style>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <a class="navbar-brand {% if CurrentMenu is defined and CurrentMenu=='home' %} active {% endif %}"  href="{{ path('home') }}">Real Estate Agenc</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +63,7 @@
             $('select').select2({
                 placeholder: {
                     id: '-1', // the value of the option
-                    text: 'Select an option'
+                    text: 'Select some options'
                 }
             });
         </script>
