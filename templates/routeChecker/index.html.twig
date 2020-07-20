@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Route Checker{% endblock %}
+
+{% block body %}
+    <style>
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 200px;
+            font-size: large;
+        }
+        .box div {
+            width: 100px;
+            height: 100px;
+        }
+        .p{
+            padding: 10px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row box align-middle">
+            <div class="col-md-6">
+                <label class="badge badge-primary p">{{ msg }}</label>
+                <label class="badge badge-success p">Success</label>
+            </div>
+        </div>
+    </div>
+{% endblock %}

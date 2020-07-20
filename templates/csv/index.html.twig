@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Route Checker{% endblock %}
+
+{% block body %}
+    <style>
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 200px;
+            font-size: x-large;
+        }
+        .box div {
+            width: 100px;
+            height: 100px;
+        }
+        .p{
+            padding: 6px;
+        }
+
+        .myButton {
+            box-shadow: 0px 0px 0px 0px #276873;
+            background:linear-gradient(to bottom, #25c1fa 5%, #5acee0 100%);
+            background-color:#25c1fa;
+            border-radius:30px;
+            border:1px solid #29668f;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            font-weight:bold;
+            font-style:italic;
+            padding:19px 56px;
+            text-decoration:none;
+            text-shadow:0px 1px 11px #3d768a;
+        }
+        .myButton:hover {
+            background:linear-gradient(to bottom, #5acee0 5%, #25c1fa 100%);
+            background-color:#5acee0;
+        }
+        .myButton:active {
+            position:relative;
+            top:1px;
+        }
+
+        .BlockedBtn {
+            box-shadow: 0px 0px 0px 0px #b8b9bf;
+            background-color:#ff0000;
+            border-radius:30px;
+            border:1px solid #9ea7b8;
+            display:inline-block;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:17px;
+            font-weight:bold;
+            font-style:italic;
+            padding:19px 56px;
+            text-decoration:none;
+            text-shadow:0px 1px 11px #572966;
+        }
+        .BlockedBtn:hover {
+            background-color:#db0404;
+        }
+        .BlockedBtn:active {
+            position:relative;
+            top:1px;
+        }
+
+
+    </style>
+
+    <div class="container">
+        <div class="row box align-middle">
+            <div class="col-md-6">
+                <form action="{{ path('csv-generator') }}" method="post" id="csv">
+                    <label for="" class="label badge-warning small p">The project directory Is : {{ dir }}</label>
+                    <input class="myButton" type="submit" value="Download CSV File" id="submit"  name="download">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            setTimeout(function () { disableButton(); }, 0);
+        });
+
+        function disableButton() {
+            $("#submit").prop('disabled', true);
+            $('#submit').removeClass('myButton').addClass('BlockedBtn');
+        }
+    });
+</script>
+{% endblock %}
+
