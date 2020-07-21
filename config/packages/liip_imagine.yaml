@@ -1,0 +1,54 @@
+    # See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    # local environment : sudo apt install php7.4-gd
+    # Docker environment : add this syntax to your DockerFile ==> install php7.4-gd
+    driver: "gd"
+
+    filter_sets:
+       thumb:
+            quality: 75
+            filters:
+                thumbnail: { size: [360, 150], mode: outbound}
+                # allow_upscale: true
+
+       medium:
+            quality: 75
+            filters:
+                thumbnail: { size: [800, 530], mode: outbound}
+
+
+
+  #liip_imagine:
+#    driver: "gd"
+#    resolvers:
+#        default:
+#            web_path:
+#                web_root: '%kernel.project_dir%/public/properties'
+#                cache_prefix: 'cache/images'
+#    loaders:
+#        default:
+#            filesystem:
+#                data_root:
+#                    - '%kernel.project_dir%/var/data/images'
+#                    - '%kernel.project_dir%/public/properties'
+#
+#    filter_sets:
+#        cache: ~
+#
+#        # the name of the "filter set"
+#        thumb:
+#
+#            # adjust the image quality to 75%
+#            quality: 75
+#
+#            # list of transformations to apply (the "filters")
+#            filters:
+#
+#                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+#                # to crop the image when the size ratio of the input differs
+#                thumbnail: { size: [360, 150], mode: outbound }
+#
+#                # create a 2px black border: center the thumbnail on a black background
+#                # 4px larger to create a 2px border around the final image
+#                background: { size: [124, 94], position: center, color: '#000000' }

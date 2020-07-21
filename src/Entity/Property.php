@@ -8,8 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 
@@ -17,6 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
  * @method static AirCondition($airConditioner)
  * @UniqueEntity("title")
+ * @Vich\Uploadable
  */
 class Property
 {
@@ -37,6 +41,25 @@ class Property
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     */
+    private $imageName;
+
+    /**
+     * @example : https://symfony.com/doc/current/reference/constraints/File.html
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="imageName")
+     * @Assert\File(
+     *     maxSize = "1M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png"},
+     *     mimeTypesMessage = "Le fichier choisi ne correspond pas à un fichier valide",
+     *     uploadErrorMessage = "Erreur dans l'upload du fichier",
+     * )
+     * @var File|null
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -105,6 +128,11 @@ class Property
      */
     public $Options;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
 
     public function getId(): ?int
     {
@@ -120,6 +148,45 @@ class Property
     {
         $this->title = $title;
 
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param string|null $imageName
+     * @return Property
+     */
+    public function setImageName(?string $imageName): Property
+    {
+        $this->imageName = $imageName;
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     * @return Property
+     */
+    public function setImageFile(?File $imageFile): Property
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
         return $this;
     }
 
@@ -320,6 +387,18 @@ class Property
         if ($this->Options->contains($option)) {
             $this->Options->removeElement($option);
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }
