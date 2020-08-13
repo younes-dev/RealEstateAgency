@@ -115,15 +115,27 @@ services:
 ##########################################
 #               mailhog Image            #
 ##########################################
-    mailhog:
-        image: christopherlafay/mailhog:latest
-        environment:
-            - MH_STORAGE=maildir
-        volumes:
-            - ./.data/mailhog:/maildir:rw,delegated
+#    mailhog:
+#        image: christopherlafay/mailhog:latest
+#        environment:
+#            - MH_STORAGE=maildir
+#        volumes:
+#            - ./.data/mailhog:/maildir:rw,delegated
+#        ports:
+#          - "8025:8025"
+#          - "1025:1025"
+
+
+##########################################
+#               maildev Image            #
+##########################################
+#    php bin/console swiftmailer:email:send
+#    docker run -p 1085:80 -p 1025:25 djfarrelly/maildev
+    maildev:
+        image: djfarrelly/maildev
         ports:
-            - "8025:8025"
-            - "1025:1025"
+            - "1085:80"
+            - "1025:25"
 
   ##########################################
   #               jenkins Image            #

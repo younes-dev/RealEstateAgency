@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
+use App\Form\ContactType;
 use App\Form\PropertySearchType;
+use App\Notification\ContactNotification;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,21 +71,40 @@ class PropertyController extends AbstractController
      * @Route("/biens/{slug}-{id}",name="property.show", requirements={"slug":"[a-z0-9\-]*"})
      * @param Property $property
      * @param string $slug
+     * @param Request $request
+     * @param ContactNotification $notification
      * @return Response
      */
-    public function show(Property $property,string $slug):Response
+    public function show(Property $property,string $slug, Request $request, ContactNotification $notification):Response
     {
 //        $property=$this->repository->find($id);
 
         if($property->getSlug() !== $slug){
             return $this->redirectToRoute('property.show',[
                 'id' =>  $property->getId(),
-                'slug' =>  $property->getSlug(),302
+                'slug' =>  $property->getSlug()
+            ],302);
+        }
+
+        $contact = new Contact();
+        $contact->setProperty($property);
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $notification->notify($contact);
+            //dump($notification->notify($contact));die;
+            $this->addFlash('success', 'Votre message a été envoyé');
+            return $this->redirectToRoute('property.show', [
+                'id' => $property->getId(),
+                'slug' => $property->getSlug()
             ]);
         }
+
         return $this->render('property/show.html.twig', [
             'property' => $property,
-            'CurrentMenu' => 'Properties'
+            'CurrentMenu' => 'Properties',
+            'form' => $form->createView()
+
         ]);
     }
 

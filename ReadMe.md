@@ -89,3 +89,6 @@ composer require jdorn/sql-formatter
 ````
 [Generating DB Schema in 10 seconds with MySQL Workbench](https://www.youtube.com/watch?v=RbKEYDtkAJI)
 
+
+[Maildev and redis docker-compose](https://git.stogon.io/jsunier/docker-stack/blob/master/docker-compose.yml)
+
